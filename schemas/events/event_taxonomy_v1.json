@@ -1,0 +1,102 @@
+{
+  "schema_version": "1.0",
+  "description": "Canonical event taxonomy for user behavior analytics",
+  "event_names": {
+    "session_start": {
+      "category": "session",
+      "required_properties": [],
+      "optional_properties": []
+    },
+    "session_end": {
+      "category": "session",
+      "required_properties": [],
+      "optional_properties": []
+    },
+    "app_open": {
+      "category": "navigation",
+      "required_properties": [],
+      "optional_properties": []
+    },
+    "page_view": {
+      "category": "navigation",
+      "required_properties": ["page_name"],
+      "optional_properties": ["referrer"]
+    },
+    "app_background": {
+      "category": "navigation",
+      "required_properties": [],
+      "optional_properties": []
+    },
+    "app_foreground": {
+      "category": "navigation",
+      "required_properties": [],
+      "optional_properties": []
+    },
+    "button_click": {
+      "category": "interaction",
+      "required_properties": ["element_id", "feature_name"],
+      "optional_properties": ["page_name"]
+    },
+    "link_click": {
+      "category": "interaction",
+      "required_properties": ["element_id"],
+      "optional_properties": ["page_name"]
+    },
+    "form_submit": {
+      "category": "interaction",
+      "required_properties": ["form_id"],
+      "optional_properties": ["feature_name"]
+    },
+    "feature_used": {
+      "category": "feature",
+      "required_properties": ["feature_name"],
+      "optional_properties": ["feature_version"]
+    },
+    "feature_completed": {
+      "category": "feature",
+      "required_properties": ["feature_name"],
+      "optional_properties": ["feature_version", "duration_ms"]
+    },
+    "signup_started": {
+      "category": "funnel",
+      "required_properties": ["funnel_id", "step_name"],
+      "optional_properties": []
+    },
+    "signup_completed": {
+      "category": "funnel",
+      "required_properties": ["funnel_id", "step_name"],
+      "optional_properties": []
+    },
+    "checkout_started": {
+      "category": "funnel",
+      "required_properties": ["funnel_id", "step_name"],
+      "optional_properties": ["cart_value"]
+    },
+    "payment_completed": {
+      "category": "funnel",
+      "required_properties": ["funnel_id", "step_name"],
+      "optional_properties": ["payment_method", "amount"]
+    },
+    "error_occurred": {
+      "category": "error",
+      "required_properties": ["error_code", "error_message", "severity"],
+      "optional_properties": ["stack_trace"]
+    },
+    "api_error": {
+      "category": "error",
+      "required_properties": [
+        "error_code",
+        "error_message",
+        "severity",
+        "endpoint"
+      ],
+      "optional_properties": ["http_status"]
+    }
+  },
+  "severity_levels": ["low", "medium", "high", "critical"],
+  "validation_rules": {
+    "unknown_event_name": "route_to_dlq",
+    "missing_required_properties": "route_to_dlq",
+    "invalid_severity": "route_to_dlq"
+  }
+}
