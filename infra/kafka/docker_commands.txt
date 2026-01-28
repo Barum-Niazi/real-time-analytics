@@ -1,0 +1,4 @@
+docker exec -it kafka kafka-topics --bootstrap-server kafka:9092 --create --if-not-exists --topic user_events_raw --partitions 3 --replication-factor 1
+docker exec -it kafka kafka-topics --bootstrap-server kafka:9092 --create --if-not-exists --topic user_events_invalid --partitions 1 --replication-factor 1
+docker exec -it kafka kafka-topics --bootstrap-server kafka:9092 --create --if-not-exists --topic user_sessions --partitions 3 --replication-factor 1
+docker exec -it kafka kafka-topics --bootstrap-server kafka:9092 --create --if-not-exists --topic user_metrics_minute --partitions 1 --replication-factor 1
