@@ -135,7 +135,7 @@ def main() -> None:
         .format("console")
         .option("truncate", "false")
         .option("checkpointLocation", CHECKPOINT_DIR)
-        .outputMode("complete")
+        .outputMode("append")
         .start()
         )
 
