@@ -34,7 +34,7 @@ services:
       - analytics_net
 
   spark-master:
-    image: bitnami/spark:3.5.1-debian-12
+    image: bitnami/spark:latest
     container_name: spark-master
     environment:
       SPARK_MODE: master
@@ -45,7 +45,7 @@ services:
       - analytics_net
 
   spark-worker:
-    image: bitnami/spark:3.5.1-debian-12
+    image: bitnami/spark:latest
     container_name: spark-worker
     depends_on:
       - spark-master
