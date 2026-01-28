@@ -15,7 +15,7 @@ create_topic () {
 
   echo "Creating topic: ${TOPIC_NAME}"
 
-  docker exec ${KAFKA_CONTAINER_NAME} kafka-topics.sh \
+  docker exec ${KAFKA_CONTAINER_NAME} kafka-topics \
     --bootstrap-server ${BOOTSTRAP_SERVER} \
     --create \
     --if-not-exists \

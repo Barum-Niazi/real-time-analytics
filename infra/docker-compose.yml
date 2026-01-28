@@ -10,7 +10,7 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
     ports:
-      - "2181:2181"
+      - "22181:2181"
     networks:
       - analytics_net
 
@@ -34,10 +34,14 @@ services:
       - analytics_net
 
   spark-master:
-    image: bitnami/spark:latest
+    image: spark:3.5.0-java17-python3
     container_name: spark-master
-    environment:
-      SPARK_MODE: master
+    command:
+      [
+        "/bin/bash",
+        "-lc",
+        "/opt/spark/sbin/start-master.sh -h spark-master && tail -F /opt/spark/logs/*",
+      ]
     ports:
       - "7077:7077"
       - "8080:8080"
@@ -45,15 +49,21 @@ services:
       - analytics_net
 
   spark-worker:
-    image: bitnami/spark:latest
+    image: spark:3.5.0-java17-python3
     container_name: spark-worker
     depends_on:
       - spark-master
+    command:
+      [
+        "/bin/bash",
+        "-lc",
+        "/opt/spark/sbin/start-worker.sh spark://spark-master:7077 && tail -F /opt/spark/logs/*",
+      ]
     environment:
-      SPARK_MODE: worker
-      SPARK_MASTER_URL: spark://spark-master:7077
-      SPARK_WORKER_CORES: 2
-      SPARK_WORKER_MEMORY: 2g
+      SPARK_WORKER_CORES: "2"
+      SPARK_WORKER_MEMORY: "2g"
+    ports:
+      - "8081:8081"
     networks:
       - analytics_net
 
